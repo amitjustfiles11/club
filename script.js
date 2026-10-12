@@ -107,7 +107,7 @@
   function setTheme(theme) {
     const light = theme === "light";
     body.classList.toggle("light", light);
-    $("#themeIcon").textContent = light ? "☾" : "☼";
+    $("#themeIcon").textContent = light ? "⏾" : "☀";
     $("#themeToggle").setAttribute("aria-label", light ? "Switch to dark theme" : "Switch to light theme");
     storage.set(themeKey, theme);
   }
@@ -264,4 +264,51 @@ if (fallText) {
         fallText.style.setProperty("--cursor-y", "0");
     });
 }
+
+document.querySelectorAll(".metric").forEach((metric) => {
+  const icon = metric.querySelector(".metric-icon");
+
+  if (!icon) return;
+
+  metric.addEventListener("mouseenter", () => {
+    icon.style.transform = "translateY(-4px)";
+    icon.style.background = "rgba(20, 184, 166, 0.22)";
+    icon.style.boxShadow = "0 8px 22px rgba(20, 184, 166, 0.18)";
+
+    const svg = icon.querySelector("svg");
+
+    if (svg) {
+      svg.style.transform = "rotate(-8deg) scale(1.12)";
+    }
+  });
+
+  metric.addEventListener("mouseleave", () => {
+    icon.style.transform = "translateY(0)";
+    icon.style.background = "rgba(20, 184, 166, 0.12)";
+    icon.style.boxShadow = "none";
+
+    const svg = icon.querySelector("svg");
+
+    if (svg) {
+      svg.style.transform = "rotate(0deg) scale(1)";
+    }
+  });
+});
+
+function updateCampusStatus() {
+  const pill = document.getElementById("campus-status");
+  const text = document.getElementById("campus-status-text");
+
+  if (!pill || !text) return;
+
+  // Demo only: replace with your actual authentication system
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+  pill.classList.toggle("online", isLoggedIn);
+  text.textContent = isLoggedIn ? "" : "";
+}
+
+updateCampusStatus();
+
+
 

@@ -107,24 +107,30 @@ button:focus-visible,a:focus-visible,input:focus-visible
   pointer-events:none;
   filter:blur(90px);
   border-radius:50%;
-  opacity:.14
+  opacity:.50
 }
 .ambient-a
 {
   width:430px;
   height:430px;
-  background:#ee6837;
-  top:130px;
+  /* background:#0d53e8; */
+ 
+
+background: linear-gradient(225deg, #abc8de 0.000%, #c7c9d8 16.667%, #e5cccf 33.333%, #ffd3c7 50.000%, #ffdbc2 66.667%, #ffe4c0 83.333%, #ffedc3 100.000%);
   right:-180px
 }
 .ambient-b
 {
   width:360px;
   height:360px;
-  background:#19c6b0;
+  /* background:#19c6b0; */
+  background: #c2e59c;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   top:800px;
   left:-210px;
-  opacity:.07
+  opacity:.40
 }
 /* 04. SHARED LAYOUT CONTAINER
    Centers the main content and limits its width on large screens. */
@@ -376,6 +382,46 @@ button:focus-visible,a:focus-visible,input:focus-visible
   letter-spacing:1.4px;
   font-weight:800
 }
+
+/* .live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.10);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  transition: all 0.3s ease;
+} */
+
+.pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e72a2a;
+  box-shadow: 0 0 8px currentColor;
+  animation: pulse 1.5s infinite;
+}
+
+.live-pill.online {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.10);
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.live-pill.online .pulse {
+  background: #1fcb5e;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.50; transform: scale(1.35); }
+}
+
 .pulse,.status-dot
 {
   width:7px;
@@ -684,41 +730,42 @@ button:focus-visible,a:focus-visible,input:focus-visible
 .metrics
 {
   margin-top:36px;
-  border:1px solid var(--line);
+  border:6px solid var(--line);
   border-radius:17px;
   background:var(--panel);
   display:grid;
   grid-template-columns:1fr 1fr 1fr auto;
-  align-items:center;
-  padding:21px 25px;
-  gap:20px
+  align-items:right ;
+  padding:29px 30px;
+  gap:15px
 }
 .metric
 {
   display:flex;
-  align-items:center;
-  gap:12px;
+  align-items: right;
+  gap:19px;
   border-right:1px solid var(--line)
 }
 .metric-icon
 {
-  width:37px;
-  height:37px;
+  width:40px;
+  height:40px;
   border-radius:11px;
   background:#3a315e;
   color:#c7bdff;
   display:grid;
   place-items:center;
-  font-size:20px
+  font-size:30px
+  
 }
 .mint-icon
 {
-  background:#244b47;
+  background:#2f6a64;
   color:var(--mint)
 }
 .orange-icon
 {
-  background:#f05c17;
+  background:#e85815;
   color:var(--orange)
 }
 .metric strong,.metric span
@@ -730,10 +777,10 @@ button:focus-visible,a:focus-visible,input:focus-visible
   font:800 18px var(--display);
   letter-spacing:-.5px
 }
-.metric div>span
+.metric  div>span
 {
-  font-size:10px;
-  color:var(--muted)
+  font-size:10px
+  color var(--muted)
 }
 .metric-note
 {
@@ -743,7 +790,7 @@ button:focus-visible,a:focus-visible,input:focus-visible
   font-weight:800;
   display:flex;
   align-items:center;
-  gap:9px;
+  gap:10px;
   white-space:nowrap
 }
 .metric-note .status-dot

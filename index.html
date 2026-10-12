@@ -35,15 +35,22 @@
     <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation" aria-expanded="false">☰</button>
     <nav class="navigation" id="navigation" aria-label="Main navigation">
       <a class="nav-item active" href="#home">Discover</a><a class="nav-item" href="#clubs">Clubs</a><a class="nav-item" href="#events">Events</a><a class="nav-item" href="#about">About</a>
-      <button class="icon-button" id="themeToggle" aria-label="Switch color theme" title="Switch theme"><span id="themeIcon">☼</span></button>
-      <button class="button button-primary nav-signin" id="signInBtn">Sign in <span>↗</span></button>
+      <button class="icon-button" id="themeToggle" aria-label="Switch color theme" title="Switch theme"><span id="themeIcon"> 🔆 </span></button>
+      <button class="button button-primary nav-signin" id="signInBtn">Sign in <span>[←</span></button>
     </nav>
   </header>
 
   <main id="home">
     <section class="hero shell">
       <div class="hero-copy reveal">
-        <div class="live-pill"><span class="pulse"></span> YOUR CAMPUS, IN ONE PLACE</div>
+
+<div class="live-pill" id="campus-status">
+  <span class="pulse"></span>
+  <span id="campus-status-text">OFFLINE</span>
+  <span> .CONNECT. CREATE. BELONG.</span>
+</div>
+
+        <!-- <div class="live-pill"><span class="pulse"></span> YOUR CAMPUS, IN ONE PLACE</div> -->
         <!-- <h1>Find your people.<br><span class="gradient-text">Find your thing.</span></h1> -->
 
 <h1 class="fall-text" aria-label="Find your people. Find your thing.">
@@ -74,7 +81,32 @@
     </section>
 
     <section class="metrics shell" aria-label="Platform highlights">
-      <div class="metric"><span class="metric-icon">⊞</span><div><strong data-count="4">04</strong><span>communities to discover</span></div></div>
+
+<div className="metric">
+  <span className="metric-icon">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="10" cy="7" r="4" />
+      <path d="M20 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  </span>
+
+  <div>
+    <strong data-count="4">04</strong>
+  </div>
+</div>
+<span> </span>
       <div class="metric"><span class="metric-icon mint-icon">↗</span><div><strong>One</strong><span>connected campus</span></div></div>
       <div class="metric"><span class="metric-icon orange-icon">Ꝏ</span><div><strong>Infinite</strong><span>ways to get involved</span></div></div>
       <div class="metric-note"><span class="status-dot"></span> YOUR NEXT CHAPTER STARTS HERE</div>
