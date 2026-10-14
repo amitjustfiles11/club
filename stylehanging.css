@@ -1,0 +1,180 @@
+:root {
+  --bg: #f4f1ea;
+  --text: #1d1d20;
+  --muted: #6c6a66;
+  --cover: #fffaf0;
+  --spine: #7a1f2b;
+  --red: #d62839;
+  --gold: #d4a73a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131316;
+    --text: #f2f2f4;
+    --muted: #a0a0a8;
+    --cover: #26262c;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
+  overflow: hidden;
+}
+
+/* ---------- Page content ---------- */
+.page {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 24px 0 300px; /* leaves space for the book on the left */
+}
+.page h1 { font-size: clamp(1.8rem, 4vw, 3rem); margin: 0 0 8px; }
+.page p  { color: var(--muted); max-width: 460px; font-family: system-ui, sans-serif; }
+
+.ctrl { margin-top: 16px; display: flex; gap: 8px; font-family: system-ui, sans-serif; }
+.ctrl button {
+  cursor: pointer;
+  border: 1px solid var(--red);
+  background: transparent;
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: .9rem;
+}
+.ctrl button:hover { background: var(--red); color: #fff; }
+
+/* ---------- Hanging book ---------- */
+
+/* The fixed point the book swings from. Change left to move it. */
+#pin {
+  position: absolute;
+  left: 100px;
+  top: 0;
+  width: 0;
+  height: 0;
+  z-index: 5;
+}
+
+/* Small bar on the ceiling */
+#pin::before {
+  content: "";
+  position: absolute;
+  left: -60px;
+  top: 0;
+  width: 120px;
+  height: 8px;
+  background: var(--spine);
+  border-radius: 0 0 6px 6px;
+}
+
+#hang {
+  position: absolute;
+  left: -95px;           /* half of the width, so it hangs centered */
+  top: 0;
+  width: 190px;
+  transform-origin: 50% 0; /* rotate from the top */
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
+}
+#hang.drag { cursor: grabbing; }
+
+/* Red strip (ribbon) */
+.strip {
+  width: 16px;
+  height: 150px;               /* change for a longer or shorter strip */
+  margin: 0 auto;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 10px, rgba(0,0,0,.12) 10px 11px),
+    linear-gradient(90deg, #a81c2b, var(--red) 40%, #f0505f 60%, #a81c2b);
+  box-shadow: 0 0 6px rgba(0,0,0,.3);
+}
+
+/* Book */
+.book {
+  position: relative;
+  width: 190px;
+  height: 260px;
+  margin-top: -4px;
+  background: var(--cover);
+  border-radius: 4px 10px 10px 4px;
+  box-shadow: 0 18px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(0,0,0,.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 14px 16px 34px;
+  text-align: center;
+}
+
+/* Spine */
+.book::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 22px;
+  background: var(--spine);
+  border-radius: 4px 0 0 4px;
+  box-shadow: inset -4px 0 6px rgba(0,0,0,.35);
+}
+
+/* Hole where the strip connects */
+.book::after {
+  content: "";
+  position: absolute;
+  left: 10px; top: 10px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.5);
+}
+
+.photo {
+  width: 110px;
+  height: 110px;
+  flex: none;
+  border-radius: 50%;
+  border: 4px solid var(--gold);
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,.25);
+}
+.photo img,
+.photo svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  -webkit-user-drag: none;
+}
+
+.name { margin-top: 14px; font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
+
+.role {
+  margin-top: 4px;
+  font-family: system-ui, sans-serif;
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.tag {
+  margin-top: auto;
+  font-family: system-ui, sans-serif;
+  font-size: .65rem;
+  color: var(--muted);
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 640px) {
+  .page { padding-left: 240px; }
+}

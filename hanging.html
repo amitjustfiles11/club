@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hanging Book Profile</title>
+  <link rel="stylesheet" href="stylehanging.css">
+</head>
+<body>
+
+  <!-- Hanging book (fixed to the left side) -->
+  <div id="pin">
+    <div id="hang" aria-label="Draggable profile book">
+      <div class="strip"></div>
+      <div class="book">
+        <div class="photo" id="photo"></div>
+        <div class="name" id="name"></div>
+        <div class="role" id="role"></div>
+        <div class="tag">Drag me &amp; let go</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Your normal page content -->
+  <main class="page">
+    <div>
+      <h1>Meet our people</h1>
+      <p>Grab the hanging book and swing it. Use the buttons to see the next profile.</p>
+      <div class="ctrl">
+        <button id="prev">&larr; Prev</button>
+        <button id="next">Next &rarr;</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="scripthanging.js"></script>
+</body>
+</html>

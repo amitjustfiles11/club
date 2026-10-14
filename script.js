@@ -312,3 +312,281 @@ updateCampusStatus();
 
 
 
+
+
+const spotlight = document.createElement("div");
+spotlight.className = "cursor-spotlight";
+
+const cursor = document.createElement("div");
+cursor.className = "invert-cursor";
+
+document.body.append(spotlight, cursor);
+
+let mouseX = -100;
+let mouseY = -100;
+let spotlightX = mouseX;
+let spotlightY = mouseY;
+let cursorX = mouseX;
+let cursorY = mouseY;
+
+document.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+document.querySelectorAll("a, button, .metric, [role='button']")
+  .forEach((element) => {
+    element.addEventListener("mouseenter", () => {
+      cursor.classList.add("hovering");
+    });
+
+    element.addEventListener("mouseleave", () => {
+      cursor.classList.remove("hovering");
+    });
+  });
+
+function animateCursor() {
+  spotlightX += (mouseX - spotlightX) * 0.10;
+  spotlightY += (mouseY - spotlightY) * 0.10;
+
+  cursorX += (mouseX - cursorX) * 0.22;
+  cursorY += (mouseY - cursorY) * 0.22;
+
+  spotlight.style.left = `${spotlightX}px`;
+  spotlight.style.top = `${spotlightY}px`;
+
+  cursor.style.left = `${cursorX}px`;
+  cursor.style.top = `${cursorY}px`;
+
+  requestAnimationFrame(animateCursor);
+}
+
+if (window.matchMedia("(pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  animateCursor();
+}
+
+document.querySelectorAll(".ascii-glitch").forEach((el) => {
+  const original = el.textContent;
+  const chars = '!?&#&^&*!@#@$@012542345678899';
+  let waves = [];
+  let frame = null;
+  let cursorPos = 0;
+  let hovering = false;
+
+  const duration = 1000;
+  const spread = 1;
+
+  function animate() {
+    const now = performance.now();
+    waves = waves.filter(w => now - w.time < duration);
+
+    if (!waves.length) {
+      el.textContent = original;
+      el.classList.remove("as");
+      frame = null;
+      return;
+    }
+
+    const text = [...original];
+    const maxDist = Math.max(original.length, 1);
+
+    waves.forEach(w => {
+      const progress = Math.min((now - w.time) / duration, 1);
+      const radius = progress * (maxDist + 5) / spread;
+
+      text.forEach((char, i) => {
+        if (char === " ") return;
+
+        const dist = Math.abs(i - w.pos);
+        if (dist <= radius && radius - dist <= 3) {
+          text[i] = chars[
+            Math.floor(now / 40 + dist * 3) % chars.length
+          ];
+        }
+      });
+    });
+
+    el.textContent = text.join("");
+    frame = requestAnimationFrame(animate);
+  }
+
+  function addWave(event) {
+    const rect = el.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    cursorPos = Math.max(
+      0,
+      Math.min(
+        original.length - 1,
+        Math.round((x / rect.width) * original.length)
+      )
+    );
+
+    waves.push({ pos: cursorPos, time: performance.now() });
+    if (waves.length > 8) waves.shift();
+
+    el.classList.add("as");
+    if (frame === null) frame = requestAnimationFrame(animate);
+  }
+
+  el.addEventListener("mouseenter", event => {
+    hovering = true;
+    addWave(event);
+  });
+
+  el.addEventListener("mousemove", event => {
+    if (!hovering) return;
+    addWave(event);
+  });
+
+  el.addEventListener("mouseleave", () => {
+    hovering = false;
+  });
+});
+
+
+// effect 2
+document.querySelectorAll(".ascii-glitchn").forEach((el) => {
+  const original = el.textContent;
+  const chars = '!?&#&^&*!@#@$@012542345678899';
+  let waves = [];
+  let frame = null;
+  let cursorPos = 0;
+  let hovering = false;
+
+  const duration = 1000;
+  const spread = 1;
+
+  function animate() {
+    const now = performance.now();
+    waves = waves.filter(w => now - w.time < duration);
+
+    if (!waves.length) {
+      el.textContent = original;
+      el.classList.remove("as");
+      frame = null;
+      return;
+    }
+
+    const text = [...original];
+    const maxDist = Math.max(original.length, 1);
+
+    waves.forEach(w => {
+      const progress = Math.min((now - w.time) / duration, 1);
+      const radius = progress * (maxDist + 5) / spread;
+
+      text.forEach((char, i) => {
+        if (char === " ") return;
+
+        const dist = Math.abs(i - w.pos);
+        if (dist <= radius && radius - dist <= 3) {
+          text[i] = chars[
+            Math.floor(now / 40 + dist * 3) % chars.length
+          ];
+        }
+      });
+    });
+
+    el.textContent = text.join("");
+    frame = requestAnimationFrame(animate);
+  }
+
+  function addWave(event) {
+    const rect = el.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    cursorPos = Math.max(
+      0,
+      Math.min(
+        original.length - 1,
+        Math.round((x / rect.width) * original.length)
+      )
+    );
+
+    waves.push({ pos: cursorPos, time: performance.now() });
+    if (waves.length > 8) waves.shift();
+
+    el.classList.add("as");
+    if (frame === null) frame = requestAnimationFrame(animate);
+  }
+
+  el.addEventListener("mouseenter", event => {
+    hovering = true;
+    addWave(event);
+  });
+
+  el.addEventListener("mousemove", event => {
+    if (!hovering) return;
+    addWave(event);
+  });
+
+  el.addEventListener("mouseleave", () => {
+    hovering = false;
+  });
+});
+// button style 
+
+document.querySelectorAll(".creepy-button").forEach((button) => {
+  const eyes = button.querySelectorAll(".creepy-eye");
+
+  button.addEventListener("pointermove", (event) => {
+    eyes.forEach((eye) => {
+      const pupil = eye.querySelector(".creepy-pupil");
+      const rect = eye.getBoundingClientRect();
+
+      const dx = event.clientX - (rect.left + rect.width / 2);
+      const dy = event.clientY - (rect.top + rect.height / 2);
+
+      const angle = Math.atan2(dy, dx);
+      const distance = Math.min(Math.hypot(dx, dy) / 12, 3);
+
+      const x = Math.cos(angle) * distance;
+      const y = Math.sin(angle) * distance;
+
+      pupil.style.transform =
+        `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+    });
+  });
+
+  button.addEventListener("pointerleave", () => {
+    button.querySelectorAll(".creepy-pupil").forEach((pupil) => {
+      pupil.style.transform = "translate(-50%, -50%)";
+    });
+  });
+});
+
+
+
+document.querySelectorAll(".stagger-text").forEach((paragraph) => {
+  // Preserve the original sentence
+  const text = paragraph.textContent.trim();
+  const words = text.split(/\s+/);
+
+  // Keep the complete sentence accessible to screen readers
+  paragraph.setAttribute("aria-label", text);
+  paragraph.setAttribute("role", "text");
+
+  // Create an animated span for each word
+  paragraph.innerHTML = "";
+
+  words.forEach((word, index) => {
+    const span = document.createElement("span");
+
+    span.className = "stagger-word";
+    span.textContent = word;
+
+    // Each word starts 70ms after the previous word
+    span.style.setProperty("--delay", `${index * 70}ms`);
+    span.setAttribute("aria-hidden", "true");
+
+    paragraph.appendChild(span);
+
+    // Preserve normal spaces between words
+    if (index < words.length - 1) {
+      paragraph.appendChild(document.createTextNode(" "));
+    }
+  });
+});
+
+
+
+

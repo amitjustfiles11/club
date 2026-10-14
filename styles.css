@@ -1248,7 +1248,7 @@ background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, F
 }
 .light-kicker
 {
-  color:#b9b4d5
+  color:#afa5e9
 }
 .event-copy h2
 {
@@ -1296,7 +1296,7 @@ background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, F
 }
 .event-card:hover
 {
-  background:#ffffff10;
+  background:#c9a5c72e;
   transform:translateX(4px)
 }
 .event-symbol
@@ -1317,7 +1317,7 @@ background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, F
 .symbol-mint
 {
   background:#214943;
-  color:#9effdd
+  color:#8ae7c6
 }
 .symbol-orange
 {
@@ -1339,13 +1339,13 @@ background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, F
   font-size:7px;
   font-weight:800;
   letter-spacing:1.2px;
-  color:#b8b0ff
+  color:#c6c2f2
 }
 .event-info h3
 {
   font:700 12px var(--display);
   margin:4px 0;
-  color:#f4f2ff
+  color:#e4e3ea
 }
 .event-info p
 {
@@ -1653,6 +1653,26 @@ background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, F
   {
     gap:45px
   }
+
+}
+/* Default / dark mode */
+.events-headline .headline-muted {
+  color: #f1f5f9;
+}
+
+.events-headline .headline-highlight {
+  color: #7cf0d0;
+}
+
+/* Light mode */
+[data-theme="light"] .events-headline .headline-muted,
+.light .events-headline .headline-muted {
+  color: #66707e;
+}
+
+[data-theme="light"] .events-headline .headline-highlight,
+.light .events-headline .headline-highlight {
+  color: #12d5c5;
 }
 /* 18. RESPONSIVE LAYOUT — MOBILE
    Stack sections and resize navigation and visual elements for phones. */
@@ -2005,7 +2025,7 @@ background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, F
 /* Mirai School of Technology identity centered in the hero visual */
 .campus-logo-card
 {
-  width:min(100%,390px);
+  width:min(100%,395px);
   aspect-ratio:1200/900;
   display:grid;
   place-items:center;
@@ -2207,4 +2227,274 @@ dialog,
         will-change: auto;
     }
 }
-/* hello */
+
+/* Hide the default cursor on desktop */
+@media (pointer: fine) {
+  body,
+  a,
+  button {
+    cursor: none;
+  }
+}
+
+/* Spotlight glow */
+.cursor-spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+  background: radial-gradient(
+    circle,
+    rgba(193, 218, 215, 0.251) 0%,
+    rgba(8, 7, 7, 0.096) 35%,
+    transparent 89%
+  );
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+
+/* Inverting cursor */
+.invert-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  background: white;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+/* Enlarge on interactive elements */
+.invert-cursor.hovering {
+  width: 60px;
+  height: 60px;
+}
+
+/* Accessibility */
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-spotlight,
+  .invert-cursor {
+    display: none;
+  }
+
+  body,
+a,
+button,
+input,
+textarea,
+select {
+  cursor: auto;
+}
+}
+/* Restore the default Mac cursor */
+html,
+body,
+body * {
+  cursor: auto !important;
+}
+
+a,
+button,
+[role="button"] {
+  cursor: pointer !important;
+}
+
+input,
+textarea {
+  cursor: text !important;
+}
+
+.ascii-glitch {
+  display: inline;
+  cursor: pointer;
+  transition: color 0.23s ease;
+}
+
+.ascii-glitch.as {
+  color: #dd1f1f;
+  text-shadow: 0 0 10px rgba(68, 79, 77, 0.423);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ascii-glitch {
+    transition: none;
+  }
+}
+ascii-glitchn {
+  display: inline;
+  cursor: pointer;
+  transition: color 0.23s ease;
+}
+
+.ascii-glitchn.as {
+  color:linear-gradient(45deg, #3c5af1 0.000%, #c84fc0 50.000%, #ffcd70 100.000%);
+  text-shadow: 0 0 10px rgba(68, 79, 77, 0.423);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ascii-glitch {
+    transition: none;
+  }
+}
+/* button style */
+
+.creepy-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  min-height: 64px;
+  padding: 0;
+  overflow: visible;
+  isolation: isolate;
+  vertical-align: middle;
+}
+
+.creepy-button-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 14px 24px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.2;
+
+  border-radius: inherit;
+  background: inherit;
+  color: inherit;
+
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(.2, .8, .2, 1);
+}
+
+.creepy-button:hover .creepy-button-cover,
+.creepy-button:focus-visible .creepy-button-cover {
+  transform: rotate(-12deg);
+}
+
+.creepy-eyes {
+  position: absolute;
+  z-index: 1;
+  right: 14px;
+  bottom: 12px;
+
+  display: flex;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.creepy-eye {
+  position: relative;
+  flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: white;
+   box-sizing: border-box;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+     border: 1px solid #52525b;
+}
+/* Stronger outline in light mode */
+.light .creepy-eye,
+[data-theme="light"] .creepy-eye {
+  border-color: #27272a;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+}
+.creepy-eye:nth-child(2) {
+  animation-delay: 0.04s;
+}
+
+.creepy-pupil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.375em;
+  height: 0.375em;
+  border-radius: 50%;
+  background: black;
+  transform: translate(-50%, -50%);
+  transition: transform 75ms ease-out;
+}
+
+@keyframes creepy-blink {
+  0%, 92%, 100% { height: 0.75em; }
+  96% { height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creepy-button-cover,
+  .creepy-pupil {
+    transition: none;
+  }
+
+  .creepy-eye {
+    animation: none;
+  }
+}
+/* Hide eyes by default */
+.creepy-eyes {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Reveal eyes when the button is hovered */
+.creepy-button:hover .creepy-eyes,
+.creepy-button:focus-visible .creepy-eyes {
+  opacity: 1;
+  visibility: visible;
+}
+/* Base style for each animated word */
+.stagger-text .stagger-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(22px);
+  filter: blur(5px);
+  animation: staggerReveal 0.65s ease forwards;
+  animation-delay: var(--delay);
+}
+
+/* Reveal each word smoothly */
+@keyframes staggerReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .stagger-text .stagger-word {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+
+
+
+
+
+
