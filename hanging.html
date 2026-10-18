@@ -1,38 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hanging Book Profile</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MALHAR Club — Hanging Leadership Book</title>
   <link rel="stylesheet" href="stylehanging.css">
+  <script src="scripthanging.js" defer></script>
 </head>
 <body>
-
-  <!-- Hanging book (fixed to the left side) -->
-  <div id="pin">
-    <div id="hang" aria-label="Draggable profile book">
-      <div class="strip"></div>
-      <div class="book">
-        <div class="photo" id="photo"></div>
-        <div class="name" id="name"></div>
-        <div class="role" id="role"></div>
-        <div class="tag">Drag me &amp; let go</div>
-      </div>
+  <div class="ambient-bg" aria-hidden="true"></div>
+  <div id="pin" aria-label="MALHAR leadership profile book">
+    <div class="hanger-rope" aria-hidden="true"></div>
+    <div id="hang" role="group" aria-label="Draggable member profile book">
+      <div class="strip" aria-hidden="true"></div>
+      <article class="book" aria-live="polite">
+        <div class="photo-wrap">
+          <img class="photo" id="photo" src="assets/sapna-singh.png" alt="Sapna Singh">
+          <div class="photo-shade"></div>
+          <div class="top-badges">
+            <span class="position-badge" id="positionBadge">President</span>
+            <span class="year-badge" id="yearBadge">2nd Year</span>
+          </div>
+        </div>
+        <div class="member-info">
+          <p class="club-kicker">MALHAR · CULTURAL CLUB</p>
+          <h1 class="name" id="name">Sapna Singh</h1>
+          <p class="role" id="role">President leading MALHAR cultural initiatives at Mirai.</p>
+        </div>
+        <div class="social-row">
+          <a class="social-link" id="instagramLink" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>Instagram
+          </a>
+          <a class="social-link" id="linkedinLink" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v10M5 5v.1M10 19v-6a4 4 0 0 1 8 0v6M10 10v9"></path><circle cx="5" cy="5" r="1.5"></circle></svg>LinkedIn
+          </a>
+        </div>
+      </article>
+      <div class="book-hint"><span class="hint-dot"></span> DRAG TO SWING <span class="hint-divider">·</span> USE ARROWS TO FLIP</div>
     </div>
   </div>
-
-  <!-- Your normal page content -->
   <main class="page">
-    <div>
-      <h1>Meet our people</h1>
-      <p>Grab the hanging book and swing it. Use the buttons to see the next profile.</p>
-      <div class="ctrl">
-        <button id="prev">&larr; Prev</button>
-        <button id="next">Next &rarr;</button>
-      </div>
-    </div>
+    <header class="page-header">
+      <div class="eyebrow"><span class="eyebrow-line"></span> MEET THE TEAM <span class="eyebrow-line"></span></div>
+      <h2>People behind <span>MALHAR.</span></h2>
+      <p>Four people. One team. The energy behind every campus celebration.</p>
+    </header>
+    <section class="member-controls" aria-label="Profile navigation">
+      <button class="nav-button" id="prev" type="button">← Previous</button>
+      <div class="page-count"><span id="currentIndex">01</span><span class="count-divider">/</span><span>04</span></div>
+      <button class="nav-button primary" id="next" type="button">Next →</button>
+    </section>
+    <p class="interaction-note">Grab the book and move it to feel the swing. Use the arrows to turn to another member.</p>
+    <div class="member-dots" id="memberDots" aria-label="Choose a member"></div>
   </main>
-
-  <script src="scripthanging.js"></script>
 </body>
 </html>

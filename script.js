@@ -132,12 +132,6 @@
     mobileMenu.textContent = "☰";
   }));
 
-  $("#signInBtn").addEventListener("click", () => openDialog({
-    kicker: "STUDENT ACCOUNT", title: "Your campus life, in one place.",
-    text: "Secure student sign-in will unlock your dashboard, membership requests, event registrations, notifications, and participation history.",
-    callout: "Authentication is not connected yet. Before real launch, add verified student accounts, password recovery, and role-based access for students, club leaders, and college admins.",
-    art: "↗", action: "Got it"
-  }));
   $("#eventsExplore").addEventListener("click", () => openDialog({
     kicker: "EVENT DISCOVERY", title: "Make room for what’s next.",
     text: "The next version can show real events with dates, venues, registration rules, capacity, organizer details, and cancellation updates. Event ideas shown on this page are illustrative only.",
@@ -587,6 +581,44 @@ document.querySelectorAll(".stagger-text").forEach((paragraph) => {
   });
 });
 
+
+const malharOverlay = document.getElementById("malharOverlay");
+const closeMalhar = document.getElementById("closeMalhar");
+
+// Find the MALHAR club card
+const malharCard = [...document.querySelectorAll(
+  ".club-card, .community-card, .club-item"
+)].find(card =>
+  card.innerText.toUpperCase().includes("MALHAR")
+);
+
+if (malharCard) {
+  malharCard.addEventListener("click", function (event) {
+    // Avoid opening the overlay when clicking the favorite button
+    if (event.target.closest(".favorite, .heart, .like-button")) return;
+
+    malharOverlay.hidden = false;
+  });
+}
+
+// Close button
+closeMalhar.addEventListener("click", () => {
+  malharOverlay.hidden = true;
+});
+
+// Close when clicking the dark backdrop
+malharOverlay.addEventListener("click", event => {
+  if (event.target === malharOverlay) {
+    malharOverlay.hidden = true;
+  }
+});
+
+// Close with Escape
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    malharOverlay.hidden = true;
+  }
+});
 
 
 

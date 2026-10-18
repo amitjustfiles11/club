@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClubSphere — MSOT Club Activities Tracker</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- External Modular Stylesheet -->
+  <link rel="stylesheet" href="login.css">
+
+  <!-- External Modular Script Engine -->
+  <script src="login.js" defer></script>
+</head>
+<body>
+
+  <!-- ========================================================================
+       TOP FLOATING UTILITIES (For Login View)
+       ======================================================================== -->
+  <header class="top-nav-bar" id="topNavUtilities">
+    <div class="demo-chip">
+      <span class="pulse-dot-teal"></span>
+      <strong style="color: var(--accent-teal);">Interactive Demo:</strong>
+      <span>Every button and view is fully functional</span>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button id="themeToggleBtn" onclick="toggleTheme()" class="icon-round-btn" title="Toggle Light/Dark Theme">
+      <svg id="sunIcon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="5"></circle>
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+      </svg>
+      <svg id="moonIcon" style="display:none;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+
+    <!-- Help Modal Button -->
+    <button onclick="openModal('helpModal')" class="icon-round-btn" title="Campus Help & Support">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+      </svg>
+    </button>
+  </header>
+
+
+  <!-- ========================================================================
+       VIEW 1: FULL LOGIN & HERO SHOWCASE PORTAL
+       ======================================================================== -->
+  <div id="loginView" class="app-view active-view">
+    <div class="login-split-layout">
+
+      <!-- --------------------------------------------------------------------
+           LEFT PANE: HERO & INTERACTIVE SHOWCASE
+           -------------------------------------------------------------------- -->
+      <section class="hero-pane">
+        <!-- Ambient Atmospheric Lighting -->
+        <div class="ambient-orb orb-teal"></div>
+        <div class="ambient-orb orb-blue"></div>
+        <div class="ambient-orb orb-indigo"></div>
+
+        <!-- Campus Architectural & Student Silhouette Backdrop -->
+        <div class="campus-vector-bg">
+          <img src="assets/campus-bg.svg" alt="University Campus Silhouettes">
+        </div>
+
+        <!-- Interactive Connected Nodes Constellation -->
+        <canvas id="constellationCanvas"></canvas>
+
+        <div class="hero-stack">
+
+          <!-- Brand Header -->
+          <div class="hero-brand-bar">
+            <a class="brand-combo" href="index.html" aria-label="Back to ClubSphere Discover">
+              <div class="brand-logo-box">
+                <!-- Exact 3-node connected logo -->
+            <img src="assets/logo.svg" alt="ClubSphere logo" width="80">
+                </div>
+
+              <div>
+                <div class="brand-title-main">
+                  <span>Club<span class="text-gradient-teal">Sphere</span></span>
+                  <span class="portal-badge">PORTAL</span>
+                </div>
+                <p class="brand-subtext">MSOT Club Activities Tracker</p>
+              </div>
+            </a>
+
+            <!-- Motto Links (Clickable!) -->
+            <div class="hero-motto-links">
+              <span class="hero-motto-link" onclick="openFeatureExplorer('clubs')">Connect</span>
+              <span class="motto-sep">•</span>
+              <span class="hero-motto-link" onclick="openFeatureExplorer('planning')">Participate</span>
+              <span class="motto-sep">•</span>
+              <span class="hero-motto-link" onclick="openFeatureExplorer('analytics')">Grow</span>
+            </div>
+          </div>
+
+          <!-- Hero Headline -->
+          <div class="hero-copy-block">
+            <div class="tag-verified">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Verified Student Activity Credentials</span>
+            </div>
+
+            <h1 class="hero-headline">
+              Your Clubs.<br>
+              Your Activities.<br>
+              <span class="headline-grad">One Platform.</span>
+            </h1>
+
+            <p class="hero-desc">
+              Manage club membership, Club Days, attendance, submissions, evaluation, and certificates — all in one place.
+              <strong>Complete. Verified. Student-Owned.</strong>
+            </p>
+          </div>
+
+          <!-- 6 Interactive Feature Cards (Click any to explore details!) -->
+          <div class="features-container">
+
+            <!-- Card 1: Club Management -->
+            <button type="button" class="feature-tile" onclick="openFeatureExplorer('clubs')" title="Click to view details">
+              <div class="feature-icon-box tile-violet">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <div class="feature-text-group">
+                <h2 class="feature-name">Club Management</h2>
+                <p class="feature-subtitle">Rosters, leads & roles</p>
+                <span class="pill-metric pill-violet">48+ Clubs</span>
+              </div>
+            </button>
+
+            <!-- Card 2: Club Day Planning -->
+            <button type="button" class="feature-tile" onclick="openFeatureExplorer('planning')" title="Click to view details">
+              <div class="feature-icon-box tile-blue">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+              <div class="feature-text-group">
+                <h2 class="feature-name">Club Day Planning</h2>
+                <p class="feature-subtitle">Venues, booths & agenda</p>
+                <span class="pill-metric pill-blue">Oct 18 Next</span>
+              </div>
+            </button>
+
+            <!-- Card 3: Attendance Check-in -->
+            <button type="button" class="feature-tile" onclick="openFeatureExplorer('attendance')" title="Click to view details">
+              <div class="feature-icon-box tile-green">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+              </div>
+              <div class="feature-text-group">
+                <h2 class="feature-name">Attendance Check-in</h2>
+                <p class="feature-subtitle">Live QR & Geo-verify</p>
+                <span class="pill-metric pill-green">Zero-Proxy</span>
+              </div>
+            </button>
+
+            <!-- Card 4: Submissions & Evaluation -->
+            <button type="button" class="feature-tile" onclick="openFeatureExplorer('submissions')" title="Click to view details">
+              <div class="feature-icon-box tile-amber">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+              </div>
+              <div class="feature-text-group">
+                <h2 class="feature-name">Submissions & Eval</h2>
+                <p class="feature-subtitle">Reports & grading</p>
+                <span class="pill-metric pill-amber">Rubrics</span>
+              </div>
+            </button>
+
+            <!-- Card 5: Certificates & Transcript -->
+            <button type="button" class="feature-tile" onclick="openFeatureExplorer('certificates')" title="Click to view details">
+              <div class="feature-icon-box tile-pink">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+              </div>
+              <div class="feature-text-group">
+                <h2 class="feature-name">Certificates & Transcript</h2>
+                <p class="feature-subtitle">Verified co-curricular PDF</p>
+                <span class="pill-metric pill-pink">E-Signed</span>
+              </div>
+            </button>
+
+            <!-- Card 6: Reports & Analytics -->
+            <button type="button" class="feature-tile" onclick="openFeatureExplorer('analytics')" title="Click to view details">
+              <div class="feature-icon-box tile-teal">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+              </div>
+              <div class="feature-text-group">
+                <h2 class="feature-name">Reports & Analytics</h2>
+                <p class="feature-subtitle">Campus audit & growth</p>
+                <span class="pill-metric pill-teal">Live Pulse</span>
+              </div>
+            </button>
+          </div>
+
+          <!-- Hero Bottom Footer -->
+          <div class="hero-footer-bar">
+            <div>
+              <span class="script-motto">More than clubs, it's your journey.</span>
+              <span class="sparkle-icon">✨</span>
+            </div>
+
+            <div class="activity-badge">
+              <span class="pulse-green"></span>
+              <span><strong>3,420+</strong> check-ins logged this month</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- --------------------------------------------------------------------
+           RIGHT PANE: AUTHENTICATION CARD & CONTROLS
+           -------------------------------------------------------------------- -->
+      <section class="auth-pane">
+        <div class="auth-ambient-light"></div>
+
+        <div class="login-card">
+
+          <!-- Card Top Header -->
+          <div class="card-brand-header">
+            <div class="card-logo-frame">
+              <img src="assets/logo.svg" alt="ClubSphere Logo">
+            </div>
+
+            <h2 class="card-title-text">
+              Club<span class="text-gradient-teal">Sphere</span>
+            </h2>
+            <p class="card-sub-motto">MSOT Club Activities Tracker</p>
+
+            <h3 class="card-welcome-header">Welcome back!</h3>
+            <p class="card-instruction">Login to your account to continue</p>
+          </div>
+
+          <!-- Persona Selector Tabs -->
+          <div class="persona-box">
+            <div class="persona-header-row">
+              <span class="persona-title">Select Campus Persona</span>
+              <span class="btn-autofill-link" onclick="fillSelectedRoleCredentials()">⚡ Autofill</span>
+            </div>
+
+            <div class="persona-btn-grid">
+              <button type="button" id="roleBtn-student" class="persona-btn active" onclick="selectRole('student')">
+                <span>🎓</span>
+                <span>Student</span>
+              </button>
+              <button type="button" id="roleBtn-lead" class="persona-btn" onclick="selectRole('lead')">
+                <span>👑</span>
+                <span>Club Lead</span>
+              </button>
+              <button type="button" id="roleBtn-admin" class="persona-btn" onclick="selectRole('admin')">
+                <span>🏛️</span>
+                <span>Admin</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Login Mode Tabs (Credentials vs QR Scan) -->
+          <div class="mode-tabs-row">
+            <button type="button" id="modeTab-form" class="mode-tab-btn active" onclick="switchLoginMode('form')">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                <polyline points="10 17 15 12 10 7"></polyline>
+                <line x1="15" y1="12" x2="3" y2="12"></line>
+              </svg>
+              <span>Password Login</span>
+            </button>
+
+            <button type="button" id="modeTab-qr" class="mode-tab-btn" onclick="switchLoginMode('qr')">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              <span>QR Instant Scan</span>
+            </button>
+          </div>
+
+          <!-- FORM 1: STANDARD USER & PASSWORD LOGIN -->
+          <form id="loginForm" class="auth-form" onsubmit="handleFormSubmit(event)">
+
+            <!-- Field 1: Email or Student ID -->
+            <div class="form-field">
+              <div class="field-top-row">
+                <label for="identifierInput" class="field-label">Email or Student ID</label>
+                <span id="identifierTypeBadge" class="field-badge">e.g. MSOT-2024-8192</span>
+              </div>
+
+              <div class="field-control-box">
+                <span class="field-lead-icon">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  id="identifierInput"
+                  class="field-input"
+                  required
+                  value="student@msot.edu"
+                  placeholder="Email or Student ID"
+                  oninput="handleIdentifierInput(this.value)"
+                >
+              </div>
+            </div>
+
+            <!-- Field 2: Password -->
+            <div class="form-field">
+              <div class="field-top-row">
+                <label for="passwordInput" class="field-label">Password</label>
+                <span id="capsLockAlert" class="caps-alert-text">
+                  ⚠️ Caps Lock is ON
+                </span>
+              </div>
+
+              <div class="field-control-box">
+                <span class="field-lead-icon">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                </span>
+                <input
+                  type="password"
+                  id="passwordInput"
+                  class="field-input"
+                  required
+                  value="StudentPulse2026!"
+                  placeholder="Password"
+                  onkeyup="checkCapsLock(event)"
+                  oninput="evaluatePasswordStrength(this.value)"
+                >
+                <!-- Show / Hide Eye -->
+                <button type="button" class="password-toggle-trigger" onclick="togglePasswordVisibility()" title="Toggle password">
+                  <svg id="eyeOpenIcon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <svg id="eyeClosedIcon" style="display:none;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Password Strength Bar -->
+              <div class="meter-wrapper">
+                <div class="meter-track">
+                  <div id="strengthMeterBar" class="meter-fill"></div>
+                </div>
+                <span id="strengthMeterText" class="meter-rating">Strong</span>
+              </div>
+            </div>
+
+            <!-- Remember Me & Forgot Password Link -->
+            <div class="row-between-controls">
+              <label class="remember-checkbox-label">
+                <input type="checkbox" id="rememberMeCheck" checked class="remember-checkbox">
+                <span>Remember me</span>
+              </label>
+              <button type="button" class="forgot-password-link" onclick="openModal('forgotModal')">
+                Forgot password?
+              </button>
+            </div>
+
+            <!-- Primary Login Submit Button -->
+            <button type="submit" id="loginSubmitBtn" class="btn-submit-login">
+              <span id="btnText">Login</span>
+              <svg id="btnArrow" class="arrow-tail-icon" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+              <svg id="btnSpinner" class="spinner-revolve" fill="none" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" opacity="0.25"></circle>
+                <path fill="currentColor" opacity="0.75" d="M4 12a8 8 0 018-8v8H4z"></path>
+              </svg>
+            </button>
+          </form>
+
+          <!-- FORM 2: QR INSTANT SCAN VIEW -->
+          <div id="qrCodeContainer" class="qr-view-box">
+            <div class="qr-scan-card">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://clubsphere.msot.edu/login/qr-auth-token-9821&color=09122C" alt="ClubSphere QR Login Code">
+              <div class="laser-scanner-line"></div>
+            </div>
+            <p class="qr-instruction-text">Scan with the <strong>ClubSphere Mobile App</strong> on your phone for passwordless login.</p>
+            <div class="qr-timer-pill">
+              <span class="pulse-dot-teal"></span>
+              <span>Code refreshes in <strong id="qrTimer">42s</strong></span>
+            </div>
+            <!-- Test Simulator Button -->
+            <button type="button" class="btn-simulate-scan" onclick="simulateMobileQrScan()">
+              <span>📱</span>
+              <span>Simulate Mobile App Scan</span>
+            </button>
+          </div>
+
+          <!-- Divider -->
+          <div class="or-divider-row">
+            <span class="or-divider-pill">or continue with</span>
+          </div>
+
+          <!-- SSO Providers -->
+          <div class="sso-buttons-column">
+            <!-- Google SSO Button -->
+            <button type="button" class="btn-sso-auth" onclick="openGoogleSsoModal()">
+              <svg viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Continue with Google</span>
+            </button>
+
+            <!-- Campus SSO Button -->
+            <button type="button" class="btn-sso-auth" onclick="openCampusSsoModal()">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <span>MSOT Campus Single Sign-On</span>
+            </button>
+          </div>
+
+          <!-- Bottom Links -->
+          <div class="card-bottom-info">
+            <p class="registration-prompt">
+              Don't have an account?
+              <button type="button" class="admin-contact-btn" onclick="openModal('registerModal')">
+                Contact your campus admin
+              </button>
+            </p>
+
+            <div class="security-standards-row">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <span>FERPA Compliant</span>
+              <span>•</span>
+              <span>256-Bit SSL Encrypted</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================
+       VIEW 2: FULL CLUBSPHERE DASHBOARD (Post-Login View)
+       ======================================================================== -->
+  <div id="dashboardView" class="app-view">
+    <div class="dashboard-page-wrapper">
+
+      <!-- Dashboard Top Header Bar -->
+      <header class="dash-header-bar">
+        <div class="dash-brand-block">
+          <div class="dash-logo-box">
+            <svg viewBox="0 0 400 400" fill="none">
+              <line x1="110" y1="190" x2="265" y2="135" stroke="#CBD5E1" stroke-width="26" stroke-linecap="round" />
+              <line x1="265" y1="135" x2="230" y2="290" stroke="#CBD5E1" stroke-width="26" stroke-linecap="round" />
+              <line x1="110" y1="190" x2="230" y2="290" stroke="#CBD5E1" stroke-width="26" stroke-linecap="round" />
+              <circle cx="110" cy="190" r="52" stroke="#1E1B4B" stroke-width="26" fill="none" />
+              <circle cx="110" cy="190" r="23" fill="#1E1B4B" />
+              <circle cx="265" cy="135" r="52" stroke="#14B8A6" stroke-width="26" fill="none" />
+              <circle cx="265" cy="135" r="23" fill="#14B8A6" />
+              <circle cx="230" cy="290" r="52" stroke="#1E1B4B" stroke-width="26" fill="none" />
+              <circle cx="230" cy="290" r="23" fill="#1E1B4B" />
+            </svg>
+          </div>
+          <span class="dash-brand-name">Club<span class="text-gradient-teal">Sphere</span></span>
+        </div>
+
+        <div class="dash-user-controls">
+          <!-- Active User Profile Chip -->
+          <div class="user-profile-summary">
+            <div id="dashUserAvatar" class="avatar-circle">AC</div>
+            <div class="user-info-text">
+              <span id="dashUserName" class="user-name-title">Alex Chen</span>
+              <span id="dashUserRole" class="user-role-badge">Student • MSOT-2024-8192</span>
+            </div>
+          </div>
+
+          <!-- Theme Toggle on Dashboard -->
+          <button onclick="toggleTheme()" class="icon-round-btn" title="Toggle Theme">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="5"></circle>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+            </svg>
+          </button>
+
+          <!-- Sign Out Action -->
+          <button type="button" class="btn-signout-action" onclick="performSignOut()">
+            <svg style="width: 15px; height: 15px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dashboard Main Body Layout -->
+      <div class="dash-content-grid">
+
+        <!-- Sidebar Navigation -->
+        <aside class="dash-sidebar">
+          <div class="dash-nav-item active">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Overview</span>
+          </div>
+
+          <div class="dash-nav-item" onclick="showToast('My Clubs', 'Loaded your active registered organizations')">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>My Clubs</span>
+          </div>
+
+          <div class="dash-nav-item" onclick="openFeatureExplorer('planning')">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Club Day Events</span>
+          </div>
+
+          <div class="dash-nav-item" onclick="simulateAttendanceCheckIn()">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Live Check-in</span>
+          </div>
+
+          <div class="dash-nav-item" onclick="openTranscriptModal()">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="7"></circle>
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+            </svg>
+            <span>Official Transcript</span>
+          </div>
+
+          <div class="dash-nav-item" onclick="openFeatureExplorer('analytics')">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            <span>Reports</span>
+          </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="dash-main-area">
+
+          <!-- Welcome Banner -->
+          <div class="dash-banner-welcome">
+            <div class="dash-welcome-text">
+              <h1>Welcome to ClubSphere, <span id="dashBannerUserName">Alex Chen</span>!</h1>
+              <p id="dashBannerUserRole">Sophomore • B.S. Computer Science • MSOT Fall 2026</p>
+            </div>
+            <button type="button" class="btn-submit-login" style="width: auto; padding: 0.6rem 1.25rem;" onclick="simulateAttendanceCheckIn()">
+              <span>⚡ Quick Check-In Today</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Persona Stats Metrics Grid -->
+          <div class="dash-metrics-row" id="dashStatsContainer">
+            <!-- Dynamically populated by JS based on role -->
+          </div>
+
+          <!-- Interactive Action Panels -->
+          <div class="dash-actions-grid">
+
+            <!-- Panel 1: Organizations List -->
+            <div class="dash-box">
+              <div class="dash-box-header">
+                <h3 class="dash-box-title">My Organizations & Activities</h3>
+                <span class="tag-verified">Verified Roster</span>
+              </div>
+
+              <div class="item-list" id="dashClubsList">
+                <!-- Dynamically populated by JS -->
+              </div>
+            </div>
+
+            <!-- Panel 2: Upcoming Events & Quick Operations -->
+            <div class="dash-box">
+              <div class="dash-box-header">
+                <h3 class="dash-box-title">Upcoming Club Day & Verifications</h3>
+                <span class="pill-metric pill-blue">Oct 18</span>
+              </div>
+
+              <div class="directory-box" style="background: rgba(2, 6, 23, 0.5); border: 1px solid var(--dashboard-border); border-radius: 0.85rem; padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                <p><strong>Next Official Campus Event:</strong></p>
+                <p id="dashUpcomingEventText" style="color: var(--accent-teal);">Annual Campus Club Day — Booth 14 (Robotics Arena)</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">Attendance is geo-verified via dynamic QR scanning. Keep your app ready.</p>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+                <button type="button" class="btn-submit-login" onclick="simulateAttendanceCheckIn()">
+                  <span>Scan / Confirm Attendance Now</span>
+                </button>
+                <button type="button" class="btn-secondary-action" style="padding: 0.75rem; text-align: center;" onclick="openTranscriptModal()">
+                  <span>📄 View Official Co-Curricular Transcript</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Club Leader Feature: Verified Student Enrollment -->
+          <section id="leaderEnrollmentPanel" class="dash-box leader-enrollment-panel" hidden>
+            <div class="dash-box-header">
+              <div>
+                <h3 class="dash-box-title">Verified Student Enrollment</h3>
+                <p class="enrollment-helper">Verify the student first, then issue their ClubSphere login credentials.</p>
+              </div>
+              <span class="pill-metric pill-teal">Club Lead</span>
+            </div>
+
+            <form id="leaderEnrollmentForm" class="enrollment-form" onsubmit="enrollVerifiedStudent(event)">
+              <div class="enrollment-fields">
+                <label class="enrollment-field">
+                  <span>Student full name</span>
+                  <input id="enrollStudentName" type="text" placeholder="e.g. Priya Sharma" required>
+                </label>
+                <label class="enrollment-field">
+                  <span>College email</span>
+                  <input id="enrollStudentEmail" type="email" placeholder="student@msot.edu" required>
+                </label>
+                <label class="enrollment-field">
+                  <span>College / roll number</span>
+                  <input id="enrollStudentRoll" type="text" placeholder="e.g. MSOT-2026-1042" required>
+                </label>
+                <label class="enrollment-field">
+                  <span>Club / team</span>
+                  <input id="enrollStudentClub" type="text" placeholder="e.g. KAIZEN" required>
+                </label>
+              </div>
+              <label class="enrollment-verify-check">
+                <input id="enrollStudentVerified" type="checkbox" required>
+                <span>I confirm that the student's identity and college details have been checked.</span>
+              </label>
+              <button class="btn-submit-login enrollment-submit" type="submit">
+                <span>✓ Verify & Generate Credentials</span>
+              </button>
+            </form>
+
+            <div id="enrollmentCredentialResult" class="enrollment-result" hidden aria-live="polite">
+              <div class="enrollment-result-heading">
+                <span class="enrollment-success-icon">✓</span>
+                <div>
+                  <strong>Student account created</strong>
+                  <p>Share these credentials with the verified student securely.</p>
+                </div>
+              </div>
+              <div class="credential-grid">
+                <div><span>Student ID</span><strong id="generatedStudentId"></strong></div>
+                <div><span>Temporary password</span><strong id="generatedStudentPassword"></strong></div>
+              </div>
+              <button type="button" class="btn-secondary-action enrollment-copy-btn" onclick="copyEnrollmentCredentials()">Copy credentials</button>
+            </div>
+
+            <div class="enrollment-roster-heading">
+              <h4>Students added by this session</h4>
+              <span id="enrolledStudentCount" class="enrollment-count">0</span>
+            </div>
+            <div id="enrolledStudentRoster" class="enrolled-student-roster">
+              <p class="enrollment-empty">No students added yet.</p>
+            </div>
+            <p class="enrollment-demo-note">Demo note: this static website stores demo records in this browser only. A real launch needs a secure backend, database, hashed passwords, and role-based authorization.</p>
+          </section>
+
+        </main>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================
+       MODALS (All Fully Functional with State & Actions)
+       ======================================================================== -->
+
+  <!-- MODAL 1: MULTI-STEP FORGOT PASSWORD WIZARD -->
+  <div id="forgotModal" class="modal-layer">
+    <div class="modal-sheet">
+      <button class="modal-dismiss-btn" onclick="closeModal('forgotModal')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <!-- Step 1: Request Code -->
+      <div id="resetStep-1" class="reset-step-pane active-step">
+        <div class="modal-heading-group">
+          <div class="modal-badge-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="modal-title-text">Reset Account Password</h3>
+            <p class="modal-subtitle-text">Step 1 of 3: Enter your registered campus identifier.</p>
+          </div>
+        </div>
+
+        <div class="modal-content-stack">
+          <div class="form-field">
+            <label class="field-label">Student ID or Campus Email</label>
+            <input type="text" id="resetIdentifierInput" class="field-input" value="student@msot.edu">
+          </div>
+          <button type="button" class="btn-submit-login" onclick="handleResetSendCode()">
+            <span>Send 6-Digit Verification Code</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Enter 6-digit OTP -->
+      <div id="resetStep-2" class="reset-step-pane">
+        <div class="modal-heading-group">
+          <div class="modal-badge-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <div>
+            <h3 class="modal-title-text">Enter Security OTP</h3>
+            <p class="modal-subtitle-text">Step 2 of 3: We sent an authorization code to your inbox.</p>
+          </div>
+        </div>
+
+        <div class="modal-content-stack">
+          <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center;">Pre-filled demo code for instant verification:</p>
+          <div class="otp-digit-inputs">
+            <input type="text" class="otp-box" value="8" readonly>
+            <input type="text" class="otp-box" value="4" readonly>
+            <input type="text" class="otp-box" value="9" readonly>
+            <input type="text" class="otp-box" value="2" readonly>
+            <input type="text" class="otp-box" value="0" readonly>
+            <input type="text" class="otp-box" value="1" readonly>
+          </div>
+          <button type="button" class="btn-submit-login" onclick="handleResetVerifyCode()">
+            <span>Verify Security Code</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: Enter New Password -->
+      <div id="resetStep-3" class="reset-step-pane">
+        <div class="modal-heading-group">
+          <div class="modal-badge-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="modal-title-text">Create New Password</h3>
+            <p class="modal-subtitle-text">Step 3 of 3: Set a strong, secure passphrase.</p>
+          </div>
+        </div>
+
+        <div class="modal-content-stack">
+          <div class="form-field">
+            <label class="field-label">New Password</label>
+            <input type="password" id="resetNewPassInput" class="field-input" value="CampusSecure2027!">
+          </div>
+          <div class="form-field">
+            <label class="field-label">Confirm New Password</label>
+            <input type="password" class="field-input" value="CampusSecure2027!">
+          </div>
+          <button type="button" class="btn-submit-login" onclick="handleResetFinish()">
+            <span>Save & Apply New Password</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 4: Success Confirmation -->
+      <div id="resetStep-4" class="reset-step-pane">
+        <div style="text-align: center; padding: 1rem 0; display: flex; flex-direction: column; align-items: center; gap: 0.75rem;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(20, 184, 166, 0.2); color: var(--accent-teal); display: flex; align-items: center; justify-content: center;">
+            <svg style="width: 28px; height: 28px;" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <h3 class="modal-title-text">Password Reset Completed!</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Your password has been successfully updated. You can now log in.</p>
+          <button type="button" class="btn-submit-login" style="margin-top: 0.5rem;" onclick="closeResetAndReturn()">
+            <span>Return to Login & Auto-Fill</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- MODAL 2: REGISTRATION / ACCOUNT REQUEST -->
+  <div id="registerModal" class="modal-layer">
+    <div class="modal-sheet">
+      <button class="modal-dismiss-btn" onclick="closeModal('registerModal')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="modal-heading-group">
+        <div class="modal-badge-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="8.5" cy="7" r="4"></circle>
+            <line x1="20" y1="8" x2="20" y2="14"></line>
+            <line x1="23" y1="11" x2="17" y2="11"></line>
+          </svg>
+        </div>
+        <div>
+          <h3 class="modal-title-text">Request Campus ClubSphere Account</h3>
+          <p class="modal-subtitle-text">Office of Student Affairs & Club Governance</p>
+        </div>
+      </div>
+
+      <form class="modal-content-stack" onsubmit="handleRegistrationSubmit(event)">
+        <div class="form-field">
+          <label class="field-label">Full Name</label>
+          <input type="text" id="regNameInput" class="field-input" required value="Jordan Taylor" placeholder="Your full legal name">
+        </div>
+
+        <div class="form-field">
+          <label class="field-label">Student ID / Faculty Token</label>
+          <input type="text" class="field-input" required value="MSOT-2025-9921" placeholder="e.g. MSOT-YYYY-XXXX">
+        </div>
+
+        <div class="form-field">
+          <label class="field-label">University Email</label>
+          <input type="email" class="field-input" required value="jordan.taylor@msot.edu" placeholder="Must end in @msot.edu">
+        </div>
+
+        <div class="form-field">
+          <label class="field-label">Club / Department of Interest</label>
+          <input type="text" class="field-input" value="MSOT Robotics & Aerospace" placeholder="Which club or role are you joining?">
+        </div>
+
+        <button type="submit" class="btn-submit-login" style="margin-top: 0.5rem;">
+          <span>Submit Verification Request</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- MODAL 3: FEATURE EXPLORER (Triggered from Hero Cards) -->
+  <div id="featureDetailModal" class="modal-layer">
+    <div class="modal-sheet">
+      <button class="modal-dismiss-btn" onclick="closeModal('featureDetailModal')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="modal-heading-group">
+        <div class="modal-badge-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <div>
+          <h3 id="featExpTitle" class="modal-title-text">Feature Title</h3>
+          <p class="modal-subtitle-text">ClubSphere Core Architecture</p>
+        </div>
+      </div>
+
+      <div class="feature-info-box">
+        <p id="featExpDesc" style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.6;">Feature description goes here.</p>
+
+        <div class="feature-stats-row">
+          <div class="stat-chip">
+            <span id="featExpStat1" class="stat-chip-num">48+</span>
+            <span id="featExpLbl1" class="stat-chip-lbl">Active</span>
+          </div>
+          <div class="stat-chip">
+            <span id="featExpStat2" class="stat-chip-num">1,200+</span>
+            <span id="featExpLbl2" class="stat-chip-lbl">Leaders</span>
+          </div>
+          <div class="stat-chip">
+            <span id="featExpStat3" class="stat-chip-num">100%</span>
+            <span id="featExpLbl3" class="stat-chip-lbl">Verified</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-submit-login" onclick="launchFeatureDemo()">
+        <span>Try this in Interactive Dashboard →</span>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- MODAL 4: GOOGLE SSO ACCOUNT PICKER -->
+  <div id="googleSsoModal" class="modal-layer">
+    <div class="modal-sheet">
+      <button class="modal-dismiss-btn" onclick="closeModal('googleSsoModal')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="modal-heading-group">
+        <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(66, 133, 244, 0.15); display: flex; align-items: center; justify-content: center;">
+          <svg style="width: 22px; height: 22px;" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="modal-title-text">Choose an Account</h3>
+          <p class="modal-subtitle-text">to continue to ClubSphere Platform</p>
+        </div>
+      </div>
+
+      <div class="sso-account-list">
+        <!-- Account 1 -->
+        <div class="sso-account-item" onclick="selectGoogleAccount('student')">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="avatar-circle">AC</div>
+            <div>
+              <p style="font-size: 0.85rem; font-weight: 700;">Alex Chen</p>
+              <p style="font-size: 0.725rem; color: var(--text-muted);">alex.chen@msot.edu (Student)</p>
+            </div>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-teal); font-weight: 700;">Select →</span>
+        </div>
+
+        <!-- Account 2 -->
+        <div class="sso-account-item" onclick="selectGoogleAccount('lead')">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="avatar-circle" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">ML</div>
+            <div>
+              <p style="font-size: 0.85rem; font-weight: 700;">Maya Lin</p>
+              <p style="font-size: 0.725rem; color: var(--text-muted);">president.robotics@msot.edu (Club Lead)</p>
+            </div>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-teal); font-weight: 700;">Select →</span>
+        </div>
+
+        <!-- Account 3 -->
+        <div class="sso-account-item" onclick="selectGoogleAccount('admin')">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="avatar-circle" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6);">AV</div>
+            <div>
+              <p style="font-size: 0.85rem; font-weight: 700;">Dr. Arthur Vance</p>
+              <p style="font-size: 0.725rem; color: var(--text-muted);">dean.activities@msot.edu (Campus Dean)</p>
+            </div>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-teal); font-weight: 700;">Select →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL 5: CAMPUS ACTIVE DIRECTORY SSO -->
+  <div id="campusSsoModal" class="modal-layer">
+    <div class="modal-sheet">
+      <button class="modal-dismiss-btn" onclick="closeModal('campusSsoModal')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="modal-heading-group">
+        <div class="modal-badge-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 class="modal-title-text">MSOT Central Authentication</h3>
+          <p class="modal-subtitle-text">Shibboleth & Azure Active Directory Gateway</p>
+        </div>
+      </div>
+
+      <div class="modal-content-stack">
+        <div class="directory-box" style="background: rgba(2, 6, 23, 0.6); padding: 1rem; border-radius: 0.85rem; border: 1px solid #1e293b; font-size: 0.825rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 0.4rem;">
+          <p><strong>Campus Identity:</strong> MSOT Federated Auth 3.1</p>
+          <p>You will be signed in securely using your campus matriculation credentials.</p>
+          <p>🔐 <strong>Protocol:</strong> SAML 2.0 • 256-Bit TLS 1.3</p>
+        </div>
+
+        <button type="button" class="btn-submit-login" onclick="confirmCampusSso()">
+          <span>Authorize and Enter Portal</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL 6: OFFICIAL CO-CURRICULAR TRANSCRIPT -->
+  <div id="transcriptModal" class="modal-layer">
+    <div class="modal-sheet" style="max-width: 580px;">
+      <button class="modal-dismiss-btn" onclick="closeModal('transcriptModal')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="modal-heading-group">
+        <div class="modal-badge-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="7"></circle>
+            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+          </svg>
+        </div>
+        <div>
+          <h3 class="modal-title-text">Official Co-Curricular Record</h3>
+          <p class="modal-subtitle-text">Verified University Activity Transcript</p>
+        </div>
+      </div>
+
+      <div style="background: #ffffff; color: #0f172a; border-radius: 1rem; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #0f172a; padding-bottom: 0.5rem;">
+          <div>
+            <h4 style="font-size: 0.95rem; font-weight: 900;">MSOT UNIVERSITY</h4>
+            <p style="color: #64748b; font-size: 0.7rem;">Office of Student Affairs</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-weight: 700;">Record ID: TR-2026-9812</p>
+            <p style="color: #10b981; font-weight: 700; font-size: 0.7rem;">✓ VERIFIED E-SIGNATURE</p>
+          </div>
+        </div>
+
+        <div>
+          <p><strong>Student:</strong> Alex Chen (ID: MSOT-2024-8192)</p>
+          <p><strong>Program:</strong> B.S. Computer Science • Class of 2028</p>
+          <p><strong>Total Approved Activity Hours:</strong> 42 Hours</p>
+        </div>
+
+        <div style="border-top: 1px dashed #cbd5e1; padding-top: 0.5rem;">
+          <p style="font-weight: 700; margin-bottom: 0.25rem;">Validated Engagements:</p>
+          <ul style="list-style: disc; margin-left: 1.25rem; color: #334155;">
+            <li>MSOT Robotics Club — Hardware Lab Lead (24 Verified Hours)</li>
+            <li>AI & Machine Learning Society — Hackathon Committee (12 Verified Hours)</li>
+            <li>Collegiate Debate Forum — Active Participant (6 Verified Hours)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.5rem;">
+        <button type="button" class="btn-submit-login" style="flex: 1;" onclick="printTranscript()">
+          <span>🖨️ Print / Download PDF</span>
+        </button>
+        <button type="button" class="btn-secondary-action" style="padding: 0 1rem;" onclick="closeModal('transcriptModal')">
+          <span>Close</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL 7: CLUB DETAILS OVERVIEW -->
+  <div id="clubDetailModal" class="modal-layer">
+    <div class="modal-sheet">
+      <button class="modal-dismiss-btn" onclick="closeModal('clubDetailModal')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="modal-heading-group">
+        <div class="modal-badge-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <div>
+          <h3 id="clubDetailTitle" class="modal-title-text">Club Details</h3>
+          <p class="modal-subtitle-text">Official Student Organization Profile</p>
+        </div>
+      </div>
+
+      <div class="directory-box" style="background: rgba(2, 6, 23, 0.6); padding: 1.15rem; border-radius: 0.85rem; border: 1px solid #1e293b; font-size: 0.825rem; display: flex; flex-direction: column; gap: 0.5rem; color: #cbd5e1;">
+        <p><strong>Faculty Advisor:</strong> Dr. Michael Foster (Dept of Engineering)</p>
+        <p><strong>Weekly Meeting:</strong> Fridays at 4:00 PM (Innovation Hall 204)</p>
+        <p><strong>Active Roster:</strong> 54 Matriculated Members</p>
+        <p><strong>Charter Status:</strong> Fully Chartered & Insured</p>
+      </div>
+
+      <button type="button" class="btn-submit-login" onclick="closeModal('clubDetailModal'); showToast('Notification Sent', 'Message posted to club board')">
+        <span>Send Message to Club Board</span>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- MODAL 8: CAMPUS IT & GENERAL HELP -->
+  <div id="helpModal" class="modal-layer">
+    <div class="modal-sheet">
+      <button class="modal-dismiss-btn" onclick="closeModal('helpModal')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="modal-heading-group">
+        <div class="modal-badge-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+        </div>
+        <div>
+          <h3 class="modal-title-text">ClubSphere Help & Guide</h3>
+          <p class="modal-subtitle-text">Campus Activities IT Support</p>
+        </div>
+      </div>
+
+      <div class="modal-content-stack">
+        <div class="faq-box">
+          <span class="faq-question">What format is my Student ID?</span>
+          <span class="faq-answer">Enter your campus matriculation code such as MSOT-2024-8192 printed on your card.</span>
+        </div>
+        <div class="faq-box">
+          <span class="faq-question">How does QR check-in work?</span>
+          <span class="faq-answer">Open the ClubSphere Mobile App, point your camera at the dynamic event QR screen, and you will be checked in immediately.</span>
+        </div>
+        <div class="faq-box">
+          <span class="faq-question">Campus IT Helpdesk:</span>
+          <span class="faq-answer">Call <strong>(555) 019-4040</strong> or email <strong>it.support@msot.edu</strong> (Available 24/7).</span>
+        </div>
+
+        <button type="button" class="btn-submit-login" onclick="closeModal('helpModal')">
+          <span>Back to Portal</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================
+       TOAST NOTIFICATION (Top-Center Floating Banner)
+       ======================================================================== -->
+  <div id="toastNotification" class="toast-float">
+    <div class="toast-icon-chip">
+      <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <div class="toast-details">
+      <span id="toastTitle" class="toast-bold-title">Notification</span>
+      <span id="toastMessage" class="toast-desc-text">Description</span>
+    </div>
+  </div>
+
+</body>
+</html>

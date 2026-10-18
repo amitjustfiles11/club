@@ -1,138 +1,30 @@
-/* ---------------------------------------------------------
-   1. YOUR PEOPLE  (edit this list)
-   photo: path to the image file. If it fails to load,
-   a coloured avatar with initials is shown instead.
---------------------------------------------------------- */
-const people = [
-  { name: "Aarav Sharma", role: "Founder",       photo: "images/aarav.jpg", c1: "#ff9a8b", c2: "#ff3366", initials: "AS" },
-  { name: "Meera Iyer",   role: "Lead Designer", photo: "images/meera.jpg", c1: "#a1c4fd", c2: "#5b6cff", initials: "MI" },
-  { name: "Rohan Das",    role: "Developer",     photo: "images/rohan.jpg", c1: "#84fab0", c2: "#12a384", initials: "RD" }
+/* MALHAR team profiles. Add verified social URLs in the member objects below. */
+const members = [
+ {name:"Sapna Singh",position:"President",year:"2nd Year",role:"President leading MALHAR cultural initiatives at Mirai.",photo:"assets/sapna-singh.png",alt:"Sapna Singh, MALHAR President",instagram:"",linkedin:""},
+ {name:"Kiran Sinha",position:"Vice President",year:"2nd Year",role:"Vice President leading MALHAR cultural initiatives at Mirai.",photo:"assets/kiran-sinha.png",alt:"Kiran Sinha, MALHAR Vice President",instagram:"",linkedin:""},
+ {name:"Anshika",position:"Treasurer",year:"2nd Year",role:"Treasurer managing MALHAR club coordination and cultural activities at Mirai.",photo:"assets/anshika.png",alt:"Anshika, MALHAR Treasurer",instagram:"",linkedin:""},
+ {name:"Dhruv Tomar",position:"Media Head",year:"2nd Year",role:"Media Head capturing and sharing MALHAR cultural initiatives at Mirai.",photo:"assets/dhruv-tomar.png",alt:"Dhruv Tomar, MALHAR Media Head",instagram:"",linkedin:""}
 ];
-
-const photoBox = document.getElementById("photo");
-const nameEl   = document.getElementById("name");
-const roleEl   = document.getElementById("role");
-let index = 0;
-
-function avatar(p) {
-  return `<svg viewBox="0 0 100 100" role="img" aria-label="${p.name}">
-    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="${p.c1}"/><stop offset="1" stop-color="${p.c2}"/>
-    </linearGradient></defs>
-    <rect width="100" height="100" fill="url(#g)"/>
-    <text x="50" y="60" text-anchor="middle" font-size="34"
-          font-family="Georgia,serif" fill="#fff" font-weight="700">${p.initials}</text>
-  </svg>`;
+const hang=document.getElementById("hang"),photo=document.getElementById("photo"),nameEl=document.getElementById("name"),roleEl=document.getElementById("role"),positionBadge=document.getElementById("positionBadge"),yearBadge=document.getElementById("yearBadge"),currentIndex=document.getElementById("currentIndex"),instagramLink=document.getElementById("instagramLink"),linkedinLink=document.getElementById("linkedinLink"),dotsWrap=document.getElementById("memberDots");
+let index=0;
+function setSocialLink(anchor,url){
+ if(url && /^https:\/\/(www\.)?(instagram\.com|linkedin\.com)\//i.test(url)){anchor.href=url;anchor.style.display="flex";}
+ else{anchor.removeAttribute("href");anchor.style.display="none";anchor.setAttribute("aria-disabled","true");}
 }
-
-function showPerson() {
-  const p = people[index];
-  photoBox.innerHTML = "";
-  const img = new Image();
-  img.alt = `${p.name}, ${p.role}`;
-  img.draggable = false;
-  img.onerror = () => { photoBox.innerHTML = avatar(p); };
-  img.src = p.photo;
-  photoBox.appendChild(img);
-  nameEl.textContent = p.name;
-  roleEl.textContent = p.role;
+function showMember(nextIndex){
+ index=(nextIndex+members.length)%members.length;const m=members[index];
+ photo.src=m.photo;photo.alt=m.alt;nameEl.textContent=m.name;roleEl.textContent=m.role;positionBadge.textContent=m.position;yearBadge.textContent=m.year;currentIndex.textContent=String(index+1).padStart(2,"0");
+ setSocialLink(instagramLink,m.instagram);setSocialLink(linkedinLink,m.linkedin);
+ [...dotsWrap.children].forEach((dot,i)=>{dot.classList.toggle("active",i===index);dot.setAttribute("aria-pressed",String(i===index));});
+ if(hang.animate)hang.animate([{opacity:.65,scale:.985},{opacity:1,scale:1}],{duration:260,easing:"cubic-bezier(.2,.8,.2,1)"});
 }
-showPerson();
-
-/* ---------------------------------------------------------
-   2. SWING PHYSICS  (pendulum)
---------------------------------------------------------- */
-const hang = document.getElementById("hang");
-const pin  = document.getElementById("pin");
-
-const STIFFNESS = 22;   // higher = swings faster
-const DAMPING   = 0.55; // higher = stops sooner
-
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-let angle = reduceMotion ? 0 : 0.5; // starting swing (radians)
-let velocity = 0;
-let dragging = false;
-let lastAngle = 0;
-let lastTime = 0;
-let prevFrame = performance.now();
-
-function pivotPoint() {
-  const r = pin.getBoundingClientRect();
-  return [r.left, r.top];
-}
-
-/* ---------------------------------------------------------
-   3. DRAG WITH MOUSE OR FINGER
---------------------------------------------------------- */
-hang.addEventListener("pointerdown", (e) => {
-  dragging = true;
-  hang.classList.add("drag");
-  hang.setPointerCapture(e.pointerId);
-  lastAngle = angle;
-  lastTime = performance.now();
-  velocity = 0;
-});
-
-hang.addEventListener("pointermove", (e) => {
-  if (!dragging) return;
-  const [px, py] = pivotPoint();
-
-  let newAngle = Math.atan2(-(e.clientX - px), Math.max(40, e.clientY - py));
-  newAngle = Math.max(-1.3, Math.min(1.3, newAngle)); // max tilt
-
-  const now = performance.now();
-  const dt = (now - lastTime) / 1000;
-  if (dt > 0) {
-    // smooth the release speed
-    velocity = velocity * 0.6 + ((newAngle - lastAngle) / dt) * 0.4;
-  }
-
-  angle = newAngle;
-  lastAngle = newAngle;
-  lastTime = now;
-});
-
-function stopDrag() {
-  if (!dragging) return;
-  dragging = false;
-  hang.classList.remove("drag");
-  velocity = Math.max(-8, Math.min(8, velocity)); // limit throw speed
-}
-hang.addEventListener("pointerup", stopDrag);
-hang.addEventListener("pointercancel", stopDrag);
-
-/* ---------------------------------------------------------
-   4. PREV / NEXT BUTTONS
---------------------------------------------------------- */
-function kick(direction) { velocity += direction * 5; }
-
-document.getElementById("next").addEventListener("click", () => {
-  index = (index + 1) % people.length;
-  showPerson();
-  kick(1);
-});
-
-document.getElementById("prev").addEventListener("click", () => {
-  index = (index - 1 + people.length) % people.length;
-  showPerson();
-  kick(-1);
-});
-
-/* ---------------------------------------------------------
-   5. ANIMATION LOOP
---------------------------------------------------------- */
-function loop(now) {
-  const dt = Math.min(0.033, (now - prevFrame) / 1000);
-  prevFrame = now;
-
-  if (!dragging) {
-    const acceleration = -STIFFNESS * Math.sin(angle) - DAMPING * velocity;
-    velocity += acceleration * dt;
-    angle += velocity * dt;
-  }
-
-  hang.style.transform = `rotate(${angle}rad)`;
-  requestAnimationFrame(loop);
-}
-requestAnimationFrame(loop);
+members.forEach((m,i)=>{const dot=document.createElement("button");dot.type="button";dot.className="member-dot"+(i===0?" active":"");dot.setAttribute("aria-label","Show "+m.name);dot.setAttribute("aria-pressed",String(i===0));dot.addEventListener("click",()=>showMember(i));dotsWrap.appendChild(dot);});
+document.getElementById("prev").addEventListener("click",()=>showMember(index-1));document.getElementById("next").addEventListener("click",()=>showMember(index+1));
+document.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")showMember(index-1);if(e.key==="ArrowRight")showMember(index+1);});
+let dragging=false,startX=0,startRotation=0,lastX=0,lastTime=0,velocity=0,rotation=0,animationFrame=null;
+function setRotation(v){rotation=Math.max(-22,Math.min(22,v));hang.style.transform=`rotate(${rotation}deg)`;}
+hang.addEventListener("pointerdown",e=>{if(e.target.closest("a,button"))return;dragging=true;hang.style.animationPlayState="paused";startX=e.clientX;startRotation=rotation;lastX=e.clientX;lastTime=performance.now();velocity=0;if(animationFrame)cancelAnimationFrame(animationFrame);hang.setPointerCapture(e.pointerId);});
+hang.addEventListener("pointermove",e=>{if(!dragging)return;const now=performance.now(),dt=Math.max(1,now-lastTime);velocity=(e.clientX-lastX)/dt;lastX=e.clientX;lastTime=now;setRotation(startRotation+(e.clientX-startX)*.22);});
+function releaseSwing(){if(!dragging)return;dragging=false;let v=velocity*5;const tick=()=>{v+=(-rotation*.045)-(v*.09);setRotation(rotation+v);if(Math.abs(rotation)<.15&&Math.abs(v)<.15){setRotation(0);hang.style.transform="";hang.style.animationPlayState="running";animationFrame=null;return;}animationFrame=requestAnimationFrame(tick);};animationFrame=requestAnimationFrame(tick);}
+hang.addEventListener("pointerup",releaseSwing);hang.addEventListener("pointercancel",releaseSwing);hang.addEventListener("lostpointercapture",()=>{if(dragging)releaseSwing();});
+showMember(0);
