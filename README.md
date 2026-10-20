@@ -11,6 +11,7 @@ A polished, responsive college clubs discovery interface built with **plain HTML
 ## Features
 - Responsive editorial-style landing page with animated visual treatment
 - Four initial club cards: KAIZEN, NEX-CELL, MALHAR, Khel Society
+- Khel Society card opens its team page, with a roster, search, filters, and member profiles
 - User-provided logo assets for the first three clubs
 - Search by club name, category, and interests
 - Category filters and empty-search state

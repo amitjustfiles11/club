@@ -9,9 +9,64 @@
   const clubs = {
     "KAIZEN": { kicker: "TECHNOLOGY · DEVELOPMENT · CP · KI", text: "KAIZEN combines Development, Competitive Programming, and KI into one technology community. This profile can later show the official description, leadership, upcoming events, membership rules, and announcements.", art: "⌘" },
     "NEX-CELL": { kicker: "ENTREPRENEURSHIP · STARTUPS", text: "NEX-CELL is about entrepreneurship, startup culture, innovation, and helping students turn ideas into something real.", art: "↗" },
-    "MALHAR": { kicker: "EVENTS · ENTERTAINMENT · CULTURE", text: "MALHAR brings campus life to the stage through college events, entertainment, cultural activities, and campus-wide programs.", art: "✳" },
-    "Khel Society": { kicker: "SPORTS · GAMES · TOURNAMENTS", text: "Khel Society brings students together through sports, games, tournaments, and athletic activities. Add the official club logo when it is available.", art: "♜" }
+    "MALHAR": { kicker: "EVENTS · ENTERTAINMENT · CULTURE", text: "MALHAR brings campus life to the stage through college events, entertainment, cultural activities, and campus-wide programs.", art: "✳" }
   };
+  const kaizenOverlay = $("#kaizenOverlay");
+  const kaizenFrame = $(".kaizen-frame", kaizenOverlay);
+  const nexCellOverlay = $("#nexCellOverlay");
+  const nexCellFrame = $("#nexCellFrame");
+  const closeNexCell = $("#closeNexCell");
+  let nexCellOpener = null;
+
+  function openKaizenBook() {
+    kaizenOverlay.hidden = false;
+    kaizenFrame.focus();
+  }
+
+  function closeKaizenBook() {
+    kaizenOverlay.hidden = true;
+  }
+
+  function openNexCellBook(opener) {
+    nexCellOpener = opener;
+    nexCellOverlay.hidden = false;
+    document.body.style.overflow = "hidden";
+    closeNexCell.focus();
+  }
+
+  function closeNexCellBook() {
+    nexCellOverlay.hidden = true;
+    document.body.style.overflow = "";
+    nexCellOpener?.focus();
+    nexCellOpener = null;
+  }
+
+  window.addEventListener("message", event => {
+    if (event.source === kaizenFrame.contentWindow &&
+        event.data?.type === "CLUBSPHERE_CLOSE_KAIZEN") {
+      closeKaizenBook();
+    }
+    if (event.source === nexCellFrame.contentWindow &&
+        event.data?.type === "CLUBSPHERE_CLOSE_NEX_CELL") {
+      closeNexCellBook();
+    }
+  });
+  $(".club-kaizen").addEventListener("click", event => {
+    if (event.target.closest(".favorite, .heart, .like-button, .card-action")) return;
+    openKaizenBook();
+  });
+  $(".club-nex").addEventListener("click", event => {
+    if (event.target.closest(".favorite, .heart, .like-button, .card-action")) return;
+    openNexCellBook(event.currentTarget);
+  });
+  $(".club-khel").addEventListener("click", event => {
+    if (event.target.closest(".favorite, .card-action")) return;
+    window.location.assign("khel-hanging.html");
+  });
+  closeNexCell.addEventListener("click", closeNexCellBook);
+  nexCellOverlay.addEventListener("click", event => {
+    if (event.target === nexCellOverlay) closeNexCellBook();
+  });
 
   function notify(message) {
     $("#toastMessage").textContent = message;
@@ -69,6 +124,18 @@
 
   $$(".card-action").forEach(button => button.addEventListener("click", () => {
     const name = button.dataset.club;
+    if (name === "KAIZEN") {
+      openKaizenBook();
+      return;
+    }
+    if (name === "NEX-CELL") {
+      openNexCellBook(button);
+      return;
+    }
+    if (name === "Khel Society") {
+      window.location.assign("khel-hanging.html");
+      return;
+    }
     const club = clubs[name];
     openDialog({kicker: club.kicker, title: name, text: club.text, art: club.art, action: "Close profile"});
   }));
@@ -299,7 +366,7 @@ function updateCampusStatus() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
   pill.classList.toggle("online", isLoggedIn);
-  text.textContent = isLoggedIn ? "" : "";
+  text.textContent = isLoggedIn ? "ONLINE" : "OFFLINE";
 }
 
 updateCampusStatus();
@@ -585,6 +652,15 @@ document.querySelectorAll(".stagger-text").forEach((paragraph) => {
 const malharOverlay = document.getElementById("malharOverlay");
 const closeMalhar = document.getElementById("closeMalhar");
 
+// Close with Escape
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    if (!kaizenOverlay.hidden) kaizenOverlay.hidden = true;
+    malharOverlay.hidden = true;
+    if (!nexCellOverlay.hidden) closeNexCellBook();
+  }
+});
+
 // Find the MALHAR club card
 const malharCard = [...document.querySelectorAll(
   ".club-card, .community-card, .club-item"
@@ -613,13 +689,41 @@ malharOverlay.addEventListener("click", event => {
   }
 });
 
-// Close with Escape
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") {
-    malharOverlay.hidden = true;
+document.addEventListener("DOMContentLoaded", () => {
+  const card = document.querySelector(".creepy-button");
+  const overlay = document.getElementById("videoOverlay");
+  const player = document.getElementById("youtubePlayer");
+  const closeBtn = document.getElementById("closeVideo");
+
+  if (!card || !overlay || !player || !closeBtn) {
+    console.error("Missing creepy button or video popup HTML.");
+    return;
   }
+
+  const videoURL =
+    "https://www.youtube-nocookie.com/embed/V-h7Egd617Y?autoplay=1";
+
+  function openVideo(event) {
+    event.preventDefault();
+    overlay.classList.add("active");
+    player.src = videoURL;
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeVideo() {
+    overlay.classList.remove("active");
+    player.src = "";
+    document.body.style.overflow = "";
+  }
+
+  card.addEventListener("click", openVideo);
+  closeBtn.addEventListener("click", closeVideo);
+
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) closeVideo();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeVideo();
+  });
 });
-
-
-
-

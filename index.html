@@ -58,7 +58,7 @@
   <span class="fall-word">
     <span class="stagger-text">Find</span>
     <span class="stagger-text">your</span>
-    <span class="gradient-text" class="stagger-text" > people. </span>
+    <span class="gradient-text"> people. </span>
   </span>
   <span class="fall-word">
     <span class="stagger-text">Find</span>
@@ -67,12 +67,17 @@
   </span>
 </h1>
 
-        <p class="hero-lede" class="ascii-glitch">The best part of college happens when you get involved. Discover communities, explore events, and turn your interests into your next big thing.</p>
+        <p class="hero-lede ascii-glitch">The best part of college happens when you get involved. Discover communities, explore events, and turn your interests into your next big thing.</p>
         <div class="hero-cta"><a href="#clubs" class="button button-primary button-xl"><span class="ascii-glitchn">Explore communities </span> </a>
-<a href="#events" class="button button-ghost button-xl creepy-button">
+
+<a href="#"
+   class="button button-ghost button-xl creepy-button"
+   onclick="openCampusVideo(); return false;"
+   aria-label="Watch What's happening? video">
+
   <span class="creepy-button-cover">
-    <span class="play-icon"> ▶</span>
-        What’s happening?
+    <span class="play-icon">▶</span>
+    What’s happening?
   </span>
 
   <span class="creepy-eyes" aria-hidden="true">
@@ -83,7 +88,9 @@
       <span class="creepy-pupil"></span>
     </span>
   </span>
+
 </a>
+
 </div>
         <div class="social-proof"><div class="avatar-stack"><span>K</span><span>N</span><span>M</span><span>+</span></div><span><b>One campus.</b> Countless ways to belong.</span></div>
       </div>
@@ -99,8 +106,8 @@
 
     <section class="metrics shell" aria-label="Platform highlights">
 
-<div className="metric">
-  <span className="metric-icon">
+<div class="metric">
+  <span class="metric-icon">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -136,17 +143,17 @@
         <div class="filters" role="group" aria-label="Filter clubs"><button class="filter active" data-filter="all">All <span>04</span></button><button class="filter" data-filter="Technology">Technology</button><button class="filter" data-filter="Entrepreneurship">Startups</button><button class="filter" data-filter="Events">Culture</button><button class="filter" data-filter="Sports">Sports</button></div>
       </div>
       <div class="club-grid" id="clubGrid" >
-        <article class="club-card club-kaizen" data-name="kaizen tech technology development competitive programming cp ki coding software" data-category="Technology">
-          <div class="club-cover"><img src="assets/kaizen.jpg" alt="KAIZEN Tech club logo" ><span class="cover-index">COMMUNITY / 01</span><button class="favorite" data-favorite="KAIZEN" aria-label="Save KAIZEN to favourites" aria-pressed="false">♡</button><span class="category-tag">TECHNOLOGY</span></div>
+        <article class="club-card club-kaizen" data-name="kaizen tech technology development competitive programming cp ki coding software" data-category="Technology" data-club="KAIZEN">
+          <div class="club-cover"><img src="assets/Kaizen.jpg" alt="KAIZEN Tech club logo"><span class="cover-index">COMMUNITY / 01</span><button class="favorite" data-favorite="KAIZEN" aria-label="Save KAIZEN to favourites" aria-pressed="false">♡</button><span class="category-tag">TECHNOLOGY</span></div>
           <div class="club-body"><div class="club-heading"><h3 class="ascii-glitchn">KAIZEN</h3><span class="club-mark">K.</span></div><p class="stagger-text">Where developers, competitive programmers, and KI minds come together to build what’s next.</p><div class="tag-row"><span>Development</span><span>CP</span><span>KI</span></div><button class="card-action" data-club="KAIZEN">Explore community <span>↗</span></button></div>
         </article>
-        <article class="club-card club-nex" data-name="nex-cell nex cell entrepreneurship startups innovation ideas business create" data-category="Entrepreneurship">
+        <article class="club-card club-nex" data-name="nex-cell nex cell entrepreneurship startups innovation ideas business create" data-category="Entrepreneurship" data-club="NEX-CELL">
           <div class="club-cover"><img src="assets/nex-cell.png" alt="NEX-CELL club logo"><span class="cover-index">COMMUNITY / 02</span><button class="favorite" data-favorite="NEX-CELL" aria-label="Save NEX-CELL to favourites" aria-pressed="false">♡</button><span class="category-tag">ENTREPRENEURSHIP</span></div>
-          <div class="club-body"><div class="club-heading""><h3 class="ascii-glitchn">NEX-CELL</h3><span class="club-mark">N.</span></div><p class="stagger-text">From first spark to first startup. Bring your ideas, curiosity, and willingness to create.</p><div class="tag-row"><span>Startups</span><span>Innovation</span><span>Ideas</span></div><button class="card-action" data-club="NEX-CELL">Explore community <span>↗</span></button></div>
+          <div class="club-body"><div class="club-heading"><h3 class="ascii-glitchn">NEX-CELL</h3><span class="club-mark">N.</span></div><p class="stagger-text">From first spark to first startup. Bring your ideas, curiosity, and willingness to create.</p><div class="tag-row"><span>Startups</span><span>Innovation</span><span>Ideas</span></div><button class="card-action" data-club="NEX-CELL">Explore community <span>↗</span></button></div>
         </article>
         <article class="club-card club-malhar" data-name="malhar event events entertainment culture cultural organizing college fest" data-category="Events">
           <div class="club-cover"><img src="assets/malhar.png" alt="MALHAR club logo"><span class="cover-index">COMMUNITY / 03</span><button class="favorite" data-favorite="MALHAR" aria-label="Save MALHAR to favourites" aria-pressed="false">♡</button><span class="category-tag">EVENTS & CULTURE</span></div>
-          <div class="club-body"><div class="club-heading""><h3 class="ascii-glitchn">MALHAR</h3><span class="club-mark">M.</span></div><p class="stagger-text">Making campus memories happen through events, entertainment, and experiences worth sharing.</p><div class="tag-row"><span>Events</span><span>Culture</span><span>Entertainment</span></div><button class="card-action" data-club="MALHAR">Explore community <span>↗</span></button></div>
+          <div class="club-body"><div class="club-heading"><h3 class="ascii-glitchn">MALHAR</h3><span class="club-mark">M.</span></div><p class="stagger-text">Making campus memories happen through events, entertainment, and experiences worth sharing.</p><div class="tag-row"><span>Events</span><span>Culture</span><span>Entertainment</span></div><button class="card-action" data-club="MALHAR">Explore community <span>↗</span></button></div>
         </article>
         <article class="club-card club-khel" data-name="khel society sports games tournaments football cricket athletics team" data-category="Sports">
           <div class="club-cover"><div class="khel-logo"><strong>KS</strong><span>Khel Society</span><i>✦</i></div><span class="cover-index">COMMUNITY / 04</span><button class="favorite" data-favorite="Khel Society" aria-label="Save Khel Society to favourites" aria-pressed="false">♡</button><span class="category-tag">SPORTS</span></div>
@@ -191,6 +198,16 @@
   <dialog id="appDialog" class="app-dialog"><button class="dialog-x" id="dialogClose" aria-label="Close dialog">×</button><div class="dialog-art" id="dialogArt">✦</div><div class="section-kicker" id="dialogKicker">CAMPUS CIRCLE</div><h2 id="dialogTitle">Find your people.</h2><p id="dialogBody">Explore your campus community.</p><div class="dialog-callout" id="dialogCallout">This is a front-end prototype. Real accounts and actions require a secure backend.</div><button class="button button-primary dialog-confirm" id="dialogConfirm">Sounds good <span>↗</span></button></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"><span>✓</span><p id="toastMessage">Saved</p></div>
 
+<!-- KAIZEN hanging-book overlay -->
+<div id="kaizenOverlay" class="kaizen-overlay" hidden>
+  <iframe
+    src="kaizen-hanging.html"
+    class="kaizen-frame"
+    tabindex="0"
+    title="KAIZEN Club Members">
+  </iframe>
+</div>
+
 <!-- MALHAR hanging-book overlay -->
 <div id="malharOverlay" class="malhar-overlay" hidden>
   <button id="closeMalhar" class="close-malhar"
@@ -201,6 +218,34 @@
     class="malhar-frame"
     title="MALHAR Club Members">
   </iframe>
+</div>
+
+<!-- NEX-CELL member-book overlay -->
+<div id="nexCellOverlay" class="nex-cell-overlay" role="dialog"
+     aria-modal="true" aria-label="NEX-CELL member book" hidden>
+  <button id="closeNexCell" class="close-nex-cell"
+          aria-label="Close NEX-CELL book">&times;</button>
+  <iframe
+    src="nex-cell.html"
+    id="nexCellFrame"
+    class="nex-cell-frame"
+    title="NEX-CELL member profiles">
+  </iframe>
+</div>
+<div id="videoOverlay" class="video-overlay">
+    <div class="video-box">
+        <button id="closeVideo" class="video-close"
+                aria-label="Close video">&times;</button>
+
+        <iframe
+            id="youtubePlayer"
+            title="What's happening? YouTube video"
+            src=""
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+        </iframe>
+    </div>
 </div>
 
   <script src="script.js"></script>
