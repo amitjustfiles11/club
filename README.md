@@ -2,11 +2,6 @@
 
 A polished, responsive college clubs discovery interface built with **plain HTML, CSS, and JavaScript**.
 
-## Run locally
-1. Extract the ZIP.
-2. Keep `index.html`, `styles.css`, `script.js`, and the `assets` directory together.
-3. Open `index.html` in a modern browser. No build tools or framework are required.
-4. Internet is used only for Google Fonts; the interface itself is local.
 
 ## Features
 - Responsive editorial-style landing page with animated visual treatment
@@ -22,10 +17,10 @@ A polished, responsive college clubs discovery interface built with **plain HTML
 - Motion-reduction preference support
 - Illustrative event section and prototype sign-in explanation
 
-## Important: frontend prototype only
+## Important: frontend 
 No real login, server, database, membership approval, event registration, notification delivery, admin dashboard, or authorization is implemented. Browser local storage is only used for demo favourites and theme preferences. Do not use this prototype to store private student data or treat demo dialogs as real registrations.
 
-## Decisions carried into this prototype
+## Decisions carried 
 - Membership requests require approval.
 - Event registration policy is set per event (public guest registration or login-required).
 - Public guest event registration must not create a student account, membership, or dashboard access.
