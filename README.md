@@ -1,4 +1,5 @@
 # ClubSphere — Advanced UI Prototype (v2)
+# link for preview https://amitjustfiles11.github.io/club/
 
 A polished, responsive college clubs discovery interface built with **plain HTML, CSS, and JavaScript**.
 
